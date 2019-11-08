@@ -1,0 +1,2420 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200&display=swap">
+        <link rel="icon" href="logo.png">
+        <title>Easy Gaming Deluxe</title>
+    </head>
+    <body>
+        <style type="text/css">
+            * {
+                font-family: sans-serif;
+            }
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+            button.modal-button:hover {
+                box-shadow: 5px 5px 5px #888888;
+            }
+            button.nav-button:hover {
+                box-shadow: 5px 5px 5px #888888;
+            }
+            button.footer-button:hover {
+                box-shadow: 5px 5px 5px #888888;
+            }
+            .play-button:hover {
+                background-color: red;
+            }
+            .info-button:hover {
+                background-color: red;
+            }
+            .show-hover:hover {
+                opacity: 1;
+            }
+            .game-start:hover {
+                background-color: white;
+                border-color: white !important;
+                color: black !important;
+            }
+            #interface-color:hover {
+                opacity: 0.75;
+                cursor: pointer;
+            }
+            .header {
+                display: table-cell;
+                width: 100vw;
+                height: 10vh;
+                background-color: maroon;
+                color: red;
+                vertical-align: middle;
+                font-size: 36pt;
+                padding-left: 2.5vw;
+            }
+            .main {
+                width: 100vw;
+                height: 90vh;
+                background-color: lightgray;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            .game-list {
+                width: 100vw;
+                height: 90vh;
+                background-color: lightgray;
+                overflow-y: scroll;
+            }
+            .cursive {
+                font-weight: normal;
+                font-family: cursive;
+            }
+            .title {
+                font-size: 36pt;
+            }
+            .centered {
+                text-align: center;
+            }
+            .light {
+                font-family: 'Raleway', sans-serif;
+            }
+            .description {
+                font-size: 16pt;
+            }
+            .game-start {
+                background-color: transparent;
+                color: white;
+                border-radius: 20px;
+                border-style: solid;
+                border-width: 2.5px;
+                outline: none;
+                padding: 20px 40px 20px 40px;
+                font-size: 16pt;
+                transition-duration: 0.25s;
+                margin: auto;
+                display: block;
+                margin-top: 10vh;
+            }
+            .game {
+                height: 50vh;
+                vertical-align: top;
+                border-color: lightgray;
+                border-style: solid;
+                border-width: 1vw;
+                background-color: white;
+                width: 33.333333333333333333333333vw;
+                background-size: 100% 100%;
+            }
+            .game-item {
+                height: 100px;
+                vertical-align: top;
+                border-color: lightgray;
+                border-style: solid;
+                border-width: 1vw;
+                background-color: white;
+                width: 50vw;
+                max-width: 47.5vw;
+                background-size: 100% 100%;
+            }
+            .game-item-rows {
+                display: inline;
+            }
+            .huge {
+                font-size: 62pt;
+            }
+            .loader {
+                width: 0vw;
+                height: 100%;
+                transition-duration: 0.5s;
+                background-color: red;
+            }
+            .text-progress-box {
+                width: 75vw;
+                height: 30vh;
+                margin-left: 12.5vw;
+                background-color: lightgray;
+                font-family: monospace;
+                font-size: 14pt;
+                color: black;
+                padding: 0;
+                overflow-y: auto;
+            }
+            .modal {
+                position: fixed;
+                display: none;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+                transition-duration: 0.25s;
+                opacity: 0;
+            }
+            .modal-content {
+                position: fixed;
+                width: 50vw;
+                margin-left: 25vw;
+                background-color: lightgray;
+                box-shadow: 5px 5px 5px #888888;
+                z-index: 10000;
+            }
+            .modal-button {
+                padding: 10px 20px 10px 20px;
+                color: black;
+                font-size: 14pt;
+                background-color: white;
+                outline: 0;
+                border-style: none;
+            }
+            .default {
+                background-color: maroon;
+                color: white;
+            }
+            .left-modal-button {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+            }
+            .right-modal-button {
+                position: absolute;
+                bottom: 20px;
+                right: 20px;
+            }
+            .modal-description {
+                margin-left: 20px;
+            }
+            .nav-button {
+                padding: 10px 20px 10px 20px;
+                color: maroon;
+                font-size: 14pt;
+                background-color: red;
+                outline: 0;
+                border-style: none;
+                float: right;
+                margin-right: 1.25vw;
+                margin-top: 1.25vw;
+            }
+            .game-title {
+                line-height: 0;
+            }
+            .game-logo {
+                width: 135px;
+                height: 100%;
+                float: right;
+                right: 0;
+                background-color: gray;
+                background-size: 100% 100%;
+                background-repeat: no-repeat;
+            }
+            .play-button {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                background-color: maroon;
+                color: white;
+                font-size: 18pt;
+                text-align: center;
+                border-style: none;
+                border-radius: 25px;
+                margin-left: 40px;
+                margin-top: 10px;
+                outline: none;
+                transition-duration: 0.25s;
+                line-height: 0;
+            }
+            .info-button {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                background-color: maroon;
+                color: white;
+                font-size: 18pt;
+                font-style: italic;
+                font-family: serif;
+                text-align: center;
+                border-style: none;
+                border-radius: 25px;
+                margin-left: 40px;
+                margin-top: 20px;
+                outline: none;
+                transition-duration: 0.25s;
+                line-height: 0;
+            }
+            .show-hover {
+                opacity: 0;
+                transition-duration: 0.25s;
+            }
+            .game-description {
+                background-color: maroon;
+                color: white;
+            }
+            .subtitle {
+                font-size: 24pt;
+                margin-left: 20px;
+            }
+            .footer {
+                display: table-cell;
+                width: 97.5vw;
+                height: 10vh;
+                background-color: maroon;
+                color: red;
+                vertical-align: middle;
+                font-size: 36pt;
+                padding-left: 2.5vw;
+                position: absolute;
+                bottom: 0;
+            }
+            .footer-button {
+                padding: 10px 20px 10px 20px;
+                color: maroon;
+                font-size: 14pt;
+                background-color: red;
+                outline: 0;
+                border-style: none;
+                float: right;
+                margin-right: 1.25vw;
+                margin-top: 1.25vw;
+            }
+            .modal-progress {
+                width: 95%;
+                margin-left: 2.5%;
+            }
+            .settings-list-item {
+                height: 75px;
+                vertical-align: top;
+                border-color: lightgray;
+                border-style: solid;
+                border-width: 1vw;
+                background-color: white;
+                width: 50vw;
+                max-width: 47.5vw;
+                background-size: 100% 100%;
+            }
+            .settings-item-name {
+                font-size: 24pt;
+                line-height: 0;
+                font-family: 'Raleway', sans-serif;
+                padding-left: 1.25vw;
+            }
+            .settings-item-description {
+                font-size: 12pt;
+                padding-left: 1.25vw;
+            }
+            .settings-item-value {
+                float: right;
+                top: 1.75vw;
+                width: 2.5vw;
+                height: 2.5vw;
+            }
+            .container {
+                display: block;
+                position: relative;
+                padding-left: 35px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 22px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .container input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+                transition-duration: 0.25s;
+            }
+            .checkmark {
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                height: 48px;
+                width: 48px;
+                background-color: white;
+                transition-duration: 0.25s;
+                outline-color: maroon;
+                outline-style: solid;
+                outline-width: 2.5px;
+            }
+            .container:hover input ~ .checkmark {
+                opacity: 0.75;
+            }
+            .container input:checked ~ .checkmark {
+                opacity: 0.75s;
+            }
+            .checkmark:after {
+                content: '';
+                position: absolute;
+                opacity: 1;
+                transition-duration: 0.25s;
+            }
+            .arrow {
+                position: absolute;
+                top: 1px;
+                left: 1px;
+                height: 48px;
+                width: 48px;
+                background-color: white;
+                transition-duration: 0.25s;
+                outline-color: maroon;
+                outline-style: solid;
+                outline-width: 2.5px;
+                content: '2192';
+            }
+            .container input:checked ~ .checkmark:after {
+                opacity: 0;
+            }
+            .container .checkmark:after {
+                left: 18px;
+                top: 10px;
+                width: 10px;
+                height: 20px;
+                border: solid maroon;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+            #games {
+                width: 100vw;
+                height: auto;
+                background-color: lightgray;
+            }
+            #game-items {
+                width: 100vw;
+                height: auto;
+                background-color: lightgray;
+            }
+            #intro {
+                background-color: maroon;
+                position: fixed;
+                color: red;
+                width: 100vw;
+                height: 100vh;
+                opacity: 1;
+                transition: opacity 250ms linear;
+                z-index: 5;
+            }
+            #intro-text {
+                opacity: 0;
+                transition-duration: 1s;
+            }
+            #front-loader-container {
+                width: 75vw;
+                margin-left: 12.5vw;
+                margin-top: 12.5vh;
+                height: 10px;
+                background-color: darkred;
+            }
+            #main {
+                display: block;
+                transition-duration: 0.25s;
+                /*position: fixed;*/
+            }
+            #game-tab {
+                position: fixed;
+                display: none;
+            }
+            #more-info-modal {
+                opacity: 0;
+            }
+            #play-game {
+                display: none;
+                overflow: hidden;
+            }
+            #actual-game {
+                width: 100vw;
+                height: 80vh;
+                border-style: none;
+                margin: 0;
+            }
+            #settings-tab {
+                display: none;
+            }
+            #settings-list {
+                width: 100vw;
+                height: auto;
+                background-color: lightgray;
+            }
+            #game-icon {
+                transition-duration: 0.25s;
+            }
+            /*#interface-color {
+                margin-top: 1.4vw;
+                margin-right: 1.25vw;
+                width: 53px;
+                height: 55px;
+                border-style: none;
+                outline: none;
+                transition-duration: 0.25s;
+            }*/
+        </style>
+        <div id="image-error" class="modal">
+            <div class="modal-content" style="height: 300px;">
+                <p class="title centered">Image Error</p>
+                <p class="modal-description description">Image(s) could not load. Continue anyway?</p>
+                <button id="image-error-reload" class="modal-button left-modal-button">Reload</button>
+                <button id="image-error-continue" class="modal-button right-modal-button default">Continue</button>
+            </div>
+        </div>
+        <div id="internet-error" class="modal">
+            <div class="modal-content" style="height: 300px;">
+                <p class="title centered">Internet Error</p>
+                <p class="modal-description description">Waiting for an Internet connection...</p>
+                <progress class="modal-progress"></progress>
+            </div>
+        </div>
+        <div id="loading-game-modal" class="modal">
+            <div class="modal-content" style="height: 300px;">
+                <p class="title centered">Play Game</p>
+                <p class="modal-description description">Rendering your game...</p>
+                <progress class="modal-progress"></progress>
+                <button id="loading-game-cancel" class="modal-button right-modal-button">Cancel</button>
+            </div>
+        </div>
+        <div id="more-info-modal" class="modal">
+            <div class="modal-content" style="height: 600px;">
+                <p class="title centered">Game Information</p>
+                <p class="subtitle">Overview</p>
+                <p id="game-overview" class="modal-description description"></p>
+                <p class="subtitle">Instructions</p>
+                <p id="game-instructions" class="modal-description description"></p>
+                <button id="more-info-close" class="modal-button right-modal-button default">Close</button>
+            </div>
+        </div>
+        <div id="intro">
+            <p id="intro-text" class="huge centered bold">Easy Gaming <b class="huge cursive">Deluxe</b></p>
+            <div id="text-progress" class="text-progress-box">
+                Initializing...
+            </div>
+            <div id="front-loader-container">
+                <div id="front-loader" class="loader"></div>
+            </div>
+        </div>
+        <div class="header">
+            <span id="game-icon">
+                Easy Gaming 
+                <b class="cursive">Deluxe</b>
+            </span>
+            <button id="back" class="nav-button">Settings</button>
+        </div>
+        <div id="main" class="main">
+            <table id="games">
+                <tr class="game-rows">
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                </tr>
+                <tr class="game-rows">
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                </tr>
+                <tr class="game-rows">
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                </tr>
+                <tr class="game-rows">
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                </tr>
+                <tr class="game-rows">
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                    <td class="game">
+                        <p class="category-title title centered light"></p>
+                        <p class="category-description description centered"></p>
+                        <button class="centered game-start open-category">Select</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="settings-tab" class="main">
+            <table id="settings-list">
+                <!--<tr class="settings-list-item">
+                    <td>
+                        <label class="container settings-item-value">
+                            <input type="checkbox" checked="checked">
+                            <span class="checkmark"></span>
+                        </label>
+                        <p class="settings-item-name">Display new features</p>
+                        <p class="settings-item-description">New features will be displayed once a new version is available.</p>
+                    </td>
+                </tr>-->
+                Please note this is the Alpha version of Easy Gaming Deluxe. Future updates will be released. Check for a new update at <a href="https://github.com/PixelatedMC/Easy-Gaming-Deluxe/" target="_blank">Github</a>.
+            </table>
+        </div>
+        <div id="game-tab" class="main">
+            <table id="game-items">
+                <tbody>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="game-item">
+                            <div class="game-logo">
+                                <div class="show-hover">
+                                    <button class="play-button">►</button>
+                                    <button class="info-button">i</button>
+                                </div>
+                            </div>
+                            <p class="game-title title game-title centered light">test</p>
+                            <p class="category-description description game-description centered">test</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="play-game" class="main">
+            <iframe id="actual-game"></iframe>
+            <div class="footer">
+                <span id="footer-icon">
+                    Easy Gaming
+                    <b class="cursive">Deluxe</b>
+                </span>
+                <button id="game-fullscreen" class="footer-button">Fullscreen</button>
+                <button id="game-report" class="footer-button">Report</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            var frontLoader = document.getElementById('front-loader');
+            var textLoader = document.getElementById('text-progress');
+            var intro = document.getElementById('intro');
+            var imageErrorModal = document.getElementById('image-error');
+            var imageErrorReload = document.getElementById('image-error-reload');
+            var imageErrorContinue = document.getElementById('image-error-continue');
+            var introText = document.getElementById('intro-text');
+            var gameOverview = document.getElementById('game-overview');
+            var gameInstructions = document.getElementById('game-instructions');
+            var gameInformationModal = document.getElementById('more-info-modal');
+            var informationModalCancel = document.getElementById('more-info-close');
+            var gameTab = document.getElementById('game-tab');
+            var mainTab = document.getElementById('main');
+            var backButton = document.getElementById('back');
+            var playGameTab = document.getElementById('play-game');
+            var fullscreenButton = document.getElementById('game-fullscreen');
+            var realGame = document.getElementById('actual-game');
+            var logo = document.getElementById('game-icon');
+            var internetError = document.getElementById('internet-error');
+            var gameLoadingModal = document.getElementById('loading-game-modal');
+            var gameLoadingCancel = document.getElementById('loading-game-cancel');
+            var settingsTab = document.getElementById('settings-tab');
+            var welcomeMessage = document.getElementById('welcome-message');
+            
+            var games = document.getElementsByClassName('game');
+            var viewButtons = document.getElementsByClassName('open-category');
+            var categoryTitles = document.getElementsByClassName('category-title');
+            var categoryDescriptions = document.getElementsByClassName('category-description');
+            var showHover = document.getElementsByClassName('show-hover');
+            var gameItems = document.getElementsByClassName('game-item');
+            var gameTitles = document.getElementsByClassName('game-title');
+            var gameDescriptions = document.getElementsByClassName('game-description');
+            var gameIcons = document.getElementsByClassName('game-logo');
+            var gamePlayButtons = document.getElementsByClassName('play-button');
+            var gameInformationButtons = document.getElementsByClassName('info-button');
+            
+            var loadProgress = 0;
+            var imageCounter = 0;
+            var imageLoadedCounter = 0;
+            var page = 'main';
+            var imageFail = false;
+            
+            var categoryInformation = [
+                {
+                    'icon': 'https://live.staticflickr.com/3535/3199311492_0de89c0d3e_b.jpg', 
+                    'textColor': 'white',
+                    'title': 'All Games',
+                    'code-title': 'all',
+                    'description': 'Every game we have to offer can be found here.'
+                },
+                {
+                    'icon': 'http://www.thebestneoncarpet.com/files/Rio_Nights.jpg',
+                    'textColor': 'white',
+                    'title': 'Arcade Games',
+                    'code-title': 'arcade',
+                    'description': 'All your favorite retro games and a few others can be found here.'
+                },
+                {
+                    'icon': 'https://ilibrarian.net/games/jigsaw-mlk/sprites/bg_game.jpg',
+                    'textColor': 'white',
+                    'title': 'Puzzle Games',
+                    'code-title': 'puzzle',
+                    'description': 'Test your puzzle-solving skills with these puzzle games.'
+                },
+                {
+                    'icon': 'https://static.vecteezy.com/system/resources/previews/000/107/544/original/vector-trivia-text-illustartion.jpg',
+                    'textColor': 'white',
+                    'title': 'Trivia Games',
+                    'code-title': 'trivia',
+                    'description': 'Quiz yourself and test your knowledge with these challenging yet fun trivia games.'
+                },
+                {
+                    'icon': 'http://www.pptbackgrounds.org/uploads/books-words-black-backgrounds-wallpapers.jpg',
+                    'textColor': 'white',
+                    'title': 'Word Games',
+                    'code-title': 'word',
+                    'description': 'Test your word knowledge with these fun word games.'
+                },
+                {
+                    'icon': 'https://ak4.picdn.net/shutterstock/videos/18622904/thumb/11.jpg',
+                    'textColor': 'white',
+                    'title': 'Multiplayer Games',
+                    'code-title': 'multiplayer',
+                    'description': 'Play against your friends with these multiplayer games.'
+                },
+                {
+                    'icon': 'https://static.vecteezy.com/system/resources/previews/000/151/913/non_2x/circle-number-matrix-background-free-vector.jpg',
+                    'textColor': 'white',
+                    'title': 'Number Games',
+                    'code-title': 'number',
+                    'description': 'Games that have to do with numbers belong here.'
+                },
+                {
+                    'icon': 'https://cdn.mos.cms.futurecdn.net/xYiTisbsp2HZPVupAZoNYQ-320-80.jpg',
+                    'textColor': 'white',
+                    'title': 'Logic Games',
+                    'code-title': 'logic',
+                    'description': 'Logic games and logical reasoning games go here.'
+                },
+                {
+                    'icon': 'https://www.researchgate.net/profile/Menno_Deen/publication/271823214/figure/fig3/AS:613970071285760@1523393280114/The-flag-pole-at-the-end-of-Super-Mario-Bros-Level-1-1-Marios-designer-Miyamoto_Q320.jpg',
+                    'textColor': 'white',
+                    'title': 'Classic Games',
+                    'code-title': 'classic',
+                    'description': 'Old, classic games that most people remember playing as a kid go here.'
+                },
+                {
+                    'icon': 'https://www.ft.com/__origami/service/image/v2/images/raw/https%3A%2F%2Fs3-eu-west-1.amazonaws.com%2Fhtsi-ez-prod%2Fez%2Fimages%2F4%2F6%2F2%2F3%2F1253264-1-eng-GB%2F1.FT-HTSI_BacMono_0571.jpg?height=930&dpr=1&format=jpg&source=htsi',
+                    'textColor': 'white',
+                    'title': 'Racing Games',
+                    'code-title': 'racing',
+                    'description': 'Drive various vehicles in all of these popular driving games.'
+                },
+                {
+                    'icon': 'https://www.freevector.com/uploads/vector/preview/25799/Joystick7.jpg',
+                    'textColor': 'white',
+                    'title': 'Skill Games',
+                    'code-title': 'skill',
+                    'description': 'Test your skill with these completely skill-based games.'
+                },
+                {
+                    'icon': 'http://shelbycountyparks.com/wp-content/uploads/2018/02/Soccer-Wallpaper-10.jpg',
+                    'textColor': 'white',
+                    'title': 'Sports Games',
+                    'code-title': 'sports',
+                    'description': 'Various sports-based games can be found under this category.'
+                },
+                {
+                    'icon': 'https://cdn.shopify.com/s/files/1/1297/3303/products/16-wooden-chess-board-with-coordinates-21183957249_1024x1024.jpg?v=1516080051',
+                    'textColor': 'white',
+                    'title': 'Strategy Games',
+                    'code-title': 'strategy',
+                    'description': 'Be thinking about your next move with these strategy games.'
+                },
+                {
+                    'icon': 'https://vips.org/wp-content/uploads/2018/09/question-background.png',
+                    'textColor': 'white',
+                    'title': 'Guessing Games',
+                    'code-title': 'guessing',
+                    'description': 'Guess the right move or answer with these guessing games.'
+                },
+                {
+                    'icon': 'https://i.ibb.co/wRppNbh/logo.png',
+                    'textColor': 'black',
+                    'title': 'EG Originals',
+                    'code-title': 'originals',
+                    'description': 'These games were on the original Easy Gaming, and you can still play them here.'
+                }
+            ];
+            var gameItemsArray = [
+                {
+                    'name': '4 Images 1 Word',
+                    'genres': ['guessing', 'word'],
+                    'overview': 'This guessing game tests your brain. Combine the images and make a logical guess to win!',
+                    'instructions': 'Click the letters in order to spell a word that relates to all the pictures.',
+                    'icon': 'https://ilibrarian.net/games/us-government-game/sprites/logo.png',
+                    'url': 'https://ilibrarian.net/games/4-images-1-word/'
+                },
+                {
+                    'name': 'Brick Out',
+                    'genres': ['originals', 'arcade', 'skill', 'classic'],
+                    'overview': 'This pong-based game tests your speed of the mouse and your accuracy as you return the ball to hit the bricks.',
+                    'instructions': 'Move your mouse to move the platform. Hit all the bricks to win!',
+                    'icon': 'https://s3.envato.com/files/268150347/thumbs/1.jpg',
+                    'url': 'https://ilibrarian.net/games/brick-out/'
+                },
+                {
+                    'name': 'Checkers',
+                    'genres': ['originals', 'strategy', 'skill', 'multiplayer', 'classic', 'logic'],
+                    'overview': 'This classic game is still a lot of fun! Take off your opponent\'s pieces to win!',
+                    'instructions': 'Click on a piece, then click a location on the board to move it. Take off your opponent\'s pieces to win!',
+                    'icon': 'https://img.icons8.com/officel/2x/checkers.png',
+                    'url': 'https://ilibrarian.net/games/checkers/'
+                },
+                {
+                    'name': 'Bubble Shooter',
+                    'genres': ['originals', 'skill', 'strategy', 'logic'],
+                    'overview': 'This highly addictive game is all about angles and strategy!',
+                    'instructions': 'Click to shoot bubbles. Match bubbles with the same colors to pop them!',
+                    'icon': 'https://store-images.s-microsoft.com/image/apps.61241.14470030594829031.619e261d-d5e3-481c-8ca5-63467f6de9df.3df6e615-89ae-42a8-a854-c8c57f36aa89',
+                    'url': 'https://ilibrarian.net/games/bubble-shooter/'
+                },
+                {
+                    'name': 'Crazy Freekick',
+                    'genres': ['skill', 'sports'],
+                    'overview': 'This soccer game is simple to learn, and requires timing to win!',
+                    'instructions': 'Click to time your kick. Get your ball past the goalie to score!',
+                    'icon': 'https://www.ducksters.com/games/graphics/crazy_freekick.jpg',
+                    'url': 'https://ilibrarian.net/games/crazy-freekick/'
+                },
+                {
+                    'name': 'Tetrominoes',
+                    'genres': ['arcade', 'skill', 'strategy', 'classic', 'logic'],
+                    'overview': 'This retro arcade game was a great game of skill and strategy, and still is now!',
+                    'instructions': 'Use the arrow keys to guide the falling blocks. Fill a row with blocks to clear it.',
+                    'icon': 'https://cdn5.f-cdn.com/contestentries/1090468/25903752/598391da39805_thumb900.jpg',
+                    'url': 'https://www.lumpty.com/amusements/Games/Tetrominoes/tetrominoes.html'
+                },
+                {
+                    'name': 'City Blocks',
+                    'genres': ['originals', 'arcade', 'skill'],
+                    'overview': 'This game requires timing and preciseness to win!',
+                    'instructions': 'Click to stack the buildings. Get as high as you can!',
+                    'icon': 'https://s3.envato.com/files/267812646/thumbs/3.jpg',
+                    'url': 'https://ilibrarian.net/games/city-blocks/'
+                },
+                {
+                    'name': 'Words Family',
+                    'genres': ['puzzle', 'strategy', 'skill', 'word'],
+                    'overview': 'This unique word game makes your brain think hard!',
+                    'instructions': 'Drag the parts of the puzzle onto the board to form words. Fill up the grid to win!',
+                    'icon': 'https://ilibrarian.net/games/dd-words/images/sprite-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/dd-words/'
+                },
+                {
+                    'name': 'Domino Block',
+                    'genres': ['originals', 'strategy', 'skill', 'classic', 'logic'],
+                    'overview': 'A game of dominoes is a good old classic, but now you can play against a computer! This game is a great brain tester as well.',
+                    'instructions': 'Build a train of dominoes. Each number must match the number of the other domino to place it. Run out of dominoes to win!',
+                    'icon': 'https://ilibrarian.net/games/domino/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/domino/'
+                },
+                {
+                    'name': 'Flicking Soccer',
+                    'genres': ['originals', 'sports', 'strategy', 'skill'],
+                    'overview': 'This is a modified version of a soccer game, it\'s quite interesting!',
+                    'instructions': 'Flick your team\'s player and make the ball go into the goal to win!',
+                    'icon': 'https://ilibrarian.net/games/flicking-soccer/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/flicking-soccer/'
+                },
+                {
+                    'name': 'Free Words',
+                    'genres': ['guessing', 'skill', 'word'],
+                    'overview': 'This game is based off Word Cookies, and is a very challenging game!',
+                    'instructions': 'Click the letters in order to spell a word that fits the letter lengths at the top. You have to guess many words to complete the level.',
+                    'icon': 'https://ilibrarian.net/games/free-words/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/free-words/'
+                },
+                {
+                    'name': 'American Football Challenge',
+                    'genres': ['sports', 'skill'],
+                    'overview': 'This football game is now more realistic than ever!',
+                    'instructions': 'Click to throw the ball, and drag your mouse to catch the oncoming balls to win!',
+                    'icon': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLbhD7yBtWV96wg1yhcHFNQg7hBVC2jzinuJfTOmdgMpYqETgcAQ:https://www.maxpixel.net/static/photo/1x/Symbol-Game-Football-Competition-Sports-Icon-Goal-958871.jpg&s',
+                    'url': 'https://ilibrarian.net/games/football-challenge/'
+                },
+                {
+                    'name': 'American Football Kicks',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This simple football game is a matter of timing and skill!',
+                    'instructions': 'Click to time your shot. Get the ball as close to the center as possible to win more points!',
+                    'icon': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3db9GiCWeT6MY_hUqmm7kTgiD-6KS5K4NMeAsI26qH86fYuG21Q:https://www.maxpixel.net/static/photo/1x/Icon-Sports-Game-Symbol-Football-Competition-Goal-958984.jpg&s',
+                    'url': 'https://ilibrarian.net/games/football-kicks/'
+                },
+                {
+                    'name': 'Funny Soccer',
+                    'genres': ['sports', 'strategy', 'skill'],
+                    'overview': 'This soccer game is quite interesting. It\'s name is also interesting.',
+                    'instructions': 'Using the arrow keys as well as the keys Z and X, kick the ball to the other side into the goal to win!',
+                    'icon': 'https://ilibrarian.net/games/funny-soccer/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/funny-soccer/'
+                },
+                {
+                    'name': 'Goose Game',
+                    'genres': ['multiplayer'],
+                    'overview': 'This board game is very frusturating but fun at the same time!',
+                    'instructions': 'Click the dice button to roll the dice. Get to the end (you need the exact number to get there) and win!',
+                    'icon': 'https://ilibrarian.net/games/goose/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/goose/'
+                },
+                {
+                    'name': 'Hockey Shootout',
+                    'genres': ['sports', 'strategy', 'skill'],
+                    'overview': 'This hockey game has realistic animations and is a very fun game to play!',
+                    'instructions': 'Swipe up to shoot the puck. Get the puck past the goalie and into the goal to win!',
+                    'icon': 'https://ilibrarian.net/games/hockey-shootout/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/hockey-shootout/'
+                },
+                {
+                    'name': 'Jigsaw Deluxe - Animal Edition',
+                    'genres': ['puzzle', 'skill', 'logic'],
+                    'overview': 'This animal version of Jigsaw Deluxe has animal pictures.',
+                    'instructions': 'Drag the pieces together to form a picture of an animal. Do it as fast as you can!',
+                    'icon': 'https://ilibrarian.net/games/jigsaw-mlk/sprites/difficulty_0.png',
+                    'url': 'https://ilibrarian.net/games/jigsaw/'
+                },
+                {
+                    'name': 'Jigsaw Deluxe - Martin Luther King Edition',
+                    'genres': ['puzzle', 'skill', 'logic'],
+                    'overview': 'This Martin Luther King version of Jigsaw Deluxe has Martin Luther King pictures.',
+                    'instructions': 'Drag the pieces together to form a picture of Martin Luther King. Do it as fast as you can!',
+                    'icon': 'https://ilibrarian.net/games/jigsaw-mlk/sprites/difficulty_1.png',
+                    'url': 'https://ilibrarian.net/games/jigsaw-mlk/'
+                },
+                {
+                    'name': 'Jigsaw Deluxe - George Washington',
+                    'genres': ['originals', 'puzzle', 'skill', 'logic'],
+                    'overview': 'This George Washington version of Jigsaw Deluxe has George Washington pictures.',
+                    'instructions': 'Drag the pieces together to form a picture of George Washington. Do it as fast as you can!',
+                    'icon': 'https://ilibrarian.net/games/jigsaw-mlk/sprites/difficulty_2.png',
+                    'url': 'https://ilibrarian.net/games/jigsaw-washington/'
+                },
+                {
+                    'name': 'Jumper Frog',
+                    'genres': ['originals', 'arcade', 'strategy', 'skill', 'logic'],
+                    'overview': 'This Frogger base game is a challenging yet fun game to play! Strangely enough, this was the only edition to be featured on the original Easy Gaming site as well.',
+                    'instructions': 'Use the arrow keys to guide the frog into one of the holes at the top of the game.',
+                    'icon': 'https://ilibrarian.net/games/jumper-frog/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/jumper-frog/'
+                },
+                {
+                    'name': 'Lights',
+                    'genres': ['originals', 'puzzle', 'strategy', 'skill', 'logic'],
+                    'overview': 'This electronic game requires lots of thought and strategy!',
+                    'instructions': 'Click on each wire to rotate it. Connect the wires to the lights to complete the circuit and win!',
+                    'icon': 'https://ilibrarian.net/games/lights/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/lights/'
+                },
+                {
+                    'name': 'Klondike Solitaire',
+                    'genres': ['classic', 'strategy', 'skill', 'logic'],
+                    'overview': 'This take on the classic Solitaire game is sure fun!',
+                    'instructions': 'Depending on the type of pile, place cards in the correct order by clicking and dragging the cards.',
+                    'icon': 'https://ilibrarian.net/games/klondike/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/klondike/'
+                },
+                {
+                    'name': 'LShift',
+                    'genres': ['puzzle', 'strategy', 'skill', 'logic', 'number'],
+                    'overview': 'This sliding letter game is a modern take of a word game and is very addictive and fun to play!',
+                    'instructions': 'Slide the letters to form words. Light up all the sliding tiles to move on to the next level.',
+                    'icon': 'https://ilibrarian.net/games/lshift/icon-256.png',
+                    'url': 'https://ilibrarian.net/games/lshift/'
+                },
+                {
+                    'name': 'Magic Words',
+                    'genres': ['puzzle', 'strategy', 'skill', 'word'],
+                    'overview': 'This word search game is very easy to learn but yet challenging to master!',
+                    'instructions': 'Drag letters to spell words that match the words in the word bank. Each correct word kills a monster. Hurry before the monsters get to you and kill you!',
+                    'icon': 'https://ilibrarian.net/games/magic-words/assets/logo.png',
+                    'url': 'https://ilibrarian.net/games/magic-words/'
+                },
+                {
+                    'name': 'Master Chess',
+                    'genres': ['originals', 'strategy', 'skill', 'classic', 'multiplayer'],
+                    'overview': 'This Chess game sure tests your skills!',
+                    'instructions': 'Move Chess pieces to take over and checkmate your opponent!',
+                    'icon': 'https://ilibrarian.net/games/master-chess/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/master-chess/'
+                },
+                {
+                    'name': 'Math Genius',
+                    'genres': ['skill', 'number', 'logic'],
+                    'overview': 'This educational game is easy to learn and only requires skill to win!',
+                    'instructions': 'Press the correct operator to make the equation true. Guess as many as you can correctly!',
+                    'icon': 'https://ilibrarian.net/games/math-genius/images/gamename-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/math-genius/'
+                },
+                {
+                    'name': 'Math Plus Pro',
+                    'genres': ['skill', 'strategy', 'number', 'logic'],
+                    'overview': 'This game is really hard and requires a lot of thought. Are you up for the challenge?',
+                    'instructions': 'Drag the highlighted square to other squares. Get all the numbers to be the same number to win!',
+                    'icon': 'https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/b1/03/17/b1031744-f251-7075-e19d-850a1c429e41/source/512x512bb.jpg',
+                    'url': 'https://ilibrarian.net/games/math-plus-pro/'
+                },
+                {
+                    'name': 'Math Pop',
+                    'genres': ['originals', 'skill', 'strategy', 'number', 'logic'],
+                    'overview': 'This strange math game is very weird. It was featured on the original Easy Gaming site as well, no idea why I even put it there...',
+                    'instructions': 'Click to pop the balloons. Add to the amount in the star. Don\'t add too much though!',
+                    'icon': 'https://ilibrarian.net/games/math-pop/img/main_menu.png',
+                    'url': 'https://ilibrarian.net/games/math-pop/'
+                },
+                {
+                    'name': 'Battleship Minesweeper',
+                    'genres': ['skill', 'number', 'logic'],
+                    'overview': 'This game is a cool and quick mine based game.',
+                    'instructions': 'Click the spots on the grid. Using the revealed information, make a logical guess to your next move. Get a mine, and the game is over!',
+                    'icon': 'https://ilibrarian.net/games/minesweeper/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/minesweeper/'
+                },
+                {
+                    'name': 'Mini Golf World',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This fun and relaxing golf game is sure fun to play!',
+                    'instructions': 'Click the ball and drag to set power and direction.',
+                    'icon': 'https://ilibrarian.net/games/mini-golf/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/mini-golf/'
+                },
+                {
+                    'name': 'Mr. Smith',
+                    'genres': ['skill', 'word', 'logic'],
+                    'overview': 'This word game is kind of like the Guess the Picture game.',
+                    'instructions': 'Click the letters to spell a word that matches the picture shown. Call Mr. Smith if you need a hint!',
+                    'icon': 'https://ilibrarian.net/games/mr-smith/SAM/splash.png',
+                    'url': 'https://ilibrarian.net/games/mr-smith/'
+                },
+                {
+                    'name': 'Nine Men\'s Morris',
+                    'genres': ['strategy', 'skill', 'multiplayer', 'logic'],
+                    'overview': 'This game is a board game where you must move pieces to win!',
+                    'instructions': 'Move pucks to form a mill. Get your opponent down to 2 pieces or no moves and you win!',
+                    'icon': 'https://ilibrarian.net/games/nine-mens-morris/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/nine-mens-morris/'
+                },
+                {
+                    'name': 'Nugget Seeker Adventure',
+                    'genres': ['originals', 'skill', 'logic'],
+                    'overview': 'This silly game is quite strange, but I guess it could be fun!',
+                    'instructions': 'Use the arrow keys to guide your miner and collect all the gold. But don\'t run into the enemies or you will be killed!',
+                    'icon': 'https://ilibrarian.net/games/nugget-adventure/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/nugget-adventure/'
+                },
+                {
+                    'name': 'Number Maze',
+                    'genres': ['strategy', 'skill', 'number', 'logic'],
+                    'overview': 'This number game is a quick game but yet challenging to master!',
+                    'instructions': 'Click on squares to move your cube to it. Don\'t drop your number below 0 or the game is over!',
+                    'icon': 'https://ilibrarian.net/games/number-maze/assets/favicon.png',
+                    'url': 'https://ilibrarian.net/games/number-maze/'
+                },
+                {
+                    'name': 'Ojello',
+                    'genres': ['skill', 'logic'],
+                    'overview': 'This skill and logic game is pretty easy at first, but it gets very challenging!',
+                    'instructions': 'Click and drag to divide the shape. Get one gold piece in each slice to pass the level.',
+                    'icon': 'https://d3d0vtz9nfa30b.cloudfront.net/files/718c90a72e35ecae5319872e71fb9893-Ojello-314x226.jpg',
+                    'url': 'https://ilibrarian.net/games/ojello/'
+                },
+                {
+                    'name': 'Pac-rat',
+                    'genres': ['arcade', 'skill', 'strategy', 'logic'],
+                    'overview': 'This version of Pac-man is very interesting and fun!',
+                    'instructions': 'Use the arrow keys to move the rat and eat the cheese. Eat the giant cheese and move to the enemies to kill them! But don\'t run into the enemies when you don\'t have the powerup or you will die!',
+                    'icon': 'https://ilibrarian.net/games/pacrat/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/pacrat/'
+                },
+                {
+                    'name': 'Pirate Adventure',
+                    'genres': ['originals', 'skill', 'strategy'],
+                    'overview': 'This pirate game is skill based and is very fun to play!',
+                    'instructions': 'Use the arrow keys to move the pirate. Touch the TNT to trigger an explosion. Escape from the enemies. Collect all coins to complete a level. Take the sword to kill the enemies.',
+                    'icon': 'https://ilibrarian.net/games/pirate-adventure/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/pirate-adventure/'
+                },
+                {
+                    'name': 'Power Blocks',
+                    'genres': ['originals', 'skill', 'logic', 'puzzle'],
+                    'overview': 'This game is kind of like a puzzle, and is very fun to play!',
+                    'instructions': 'Drag the shapes to form a square in the grid to win!',
+                    'icon': 'https://is2-ssl.mzstatic.com/image/thumb/Purple122/v4/62/56/22/6256225c-8311-537b-86c0-c833c3a356b4/source/512x512bb.jpg',
+                    'url': 'https://ilibrarian.net/games/power-blocks/'
+                },
+                {
+                    'name': 'Pyramid Solitaire',
+                    'genres': ['originals', 'classic', 'strategy', 'skill', 'logic'],
+                    'overview': 'This take on the classic Solitaire game is quite interesting!',
+                    'instructions': 'Depending on the type of pile, place cards in the correct order by clicking and dragging the cards.',
+                    'icon': 'https://ilibrarian.net/games/pyramid-solitaire/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/pyramid-solitaire/'
+                },
+                {
+                    'name': 'Reflector',
+                    'genres': ['originals', 'strategy', 'skill', 'logic'],
+                    'overview': 'This light reflecting game is very fun to play!',
+                    'instructions': 'Move the pieces around to redirect the light to the target. Do so to finish the level!',
+                    'icon': 'https://ilibrarian.net/games/reflector/images/tiledbackground.png',
+                    'url': 'https://ilibrarian.net/games/reflector/'
+                },
+                {
+                    'name': 'Reversi',
+                    'genres': ['originals', 'classic', 'strategy', 'skill', 'logic'],
+                    'overview': 'This classic game is a fun yet old board game.',
+                    'instructions': 'Click to place a piece on the board. Sometimes your opponent\'s pieces will flip. Try to have more control by the end of the game to win!',
+                    'icon': 'https://ilibrarian.net/games/reversi/sprites/bg_game.jpg',
+                    'url': 'https://ilibrarian.net/games/reversi/'
+                },
+                {
+                    'name': 'Ski Rush',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This Ski Rush game is very fun!',
+                    'instructions': 'Move your character by using the arrow keys. Try to hit the flags. Avoid obstacles.',
+                    'icon': 'https://ilibrarian.net/games/ski-rush/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/ski-rush/'
+                },
+                {
+                    'name': 'Slot Car Racing',
+                    'genres': ['originals', 'racing', 'multiplayer', 'skill'],
+                    'overview': 'Race slot cars with this fun driving game!',
+                    'instructions': 'Use the keys to drive your car. Avoid going too fast around corners or else you will fall off the track!',
+                    'icon': 'https://ilibrarian.net/games/slot-car/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/slot-car/'
+                },
+                {
+                    'name': 'The Sorcerer',
+                    'genres': ['originals', 'strategy', 'skill'],
+                    'overview': 'This strange bubble game is weird and kinda fun, I guess.',
+                    'instructions': 'Click to shoot bubbles. Match 3 bubbles to pop them.',
+                    'icon': 'https://ilibrarian.net/games/sorcerer/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/sorcerer/'
+                },
+                {
+                    'name': 'Spider Solitaire',
+                    'genres': ['classic', 'strategy', 'skill', 'logic'],
+                    'overview': 'This take on the classic Solitaire game is quite interesting!',
+                    'instructions': 'Depending on the type of pile, place cards in the correct order by clicking and dragging the cards.',
+                    'icon': 'https://ilibrarian.net/games/spider-solitaire/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/spider-solitaire/'
+                },
+                {
+                    'name': 'Street Shot',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This basketball game is very strange but a very easy game to learn and understand.',
+                    'instructions': 'Click and drag to shoot the ball.',
+                    'icon': 'https://ilibrarian.net/games/street-shot/images/gamebg-default-000.jpg',
+                    'url': 'https://ilibrarian.net/games/street-shot/'
+                },
+                {
+                    'name': 'Tic Tac Toe',
+                    'genres': ['originals', 'classic', 'skill', 'strategy', 'logic'],
+                    'overview': 'The game that everybody loves - Tic Tac Toe!',
+                    'instructions': 'Click to place an X. Get 3 in a row horizontally, diagonally, or vertically to win!',
+                    'icon': 'https://ilibrarian.net/games/tic-tac-toe/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/tic-tac-toe/'
+                },
+                {
+                    'name': 'Tonality',
+                    'genres': ['guessing', 'logic', 'skill'],
+                    'overview': 'This blind version of the matching game is quite hard!',
+                    'instructions': 'Click two squares. If they match, they disappear. If not, they flip back over. Try to get all of the squares to disappear to win!',
+                    'icon': 'https://ilibrarian.net/games/tonality-folder/tonality/skins/white/gfx/title.png',
+                    'url': 'https://ilibrarian.net/games/tonality-folder/'
+                },
+                {
+                    'name': 'Tripeaks Solitaire',
+                    'genres': ['classic', 'strategy', 'skill', 'logic'],
+                    'overview': 'This take on the classic Solitaire game is quite interesting!',
+                    'instructions': 'Depending on the type of pile, place cards in the correct order by clicking and dragging the cards.',
+                    'icon': 'https://ilibrarian.net/games/tripeaks-solitaire/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/tripeaks-solitaire/'
+                },
+                {
+                    'name': 'Tronix',
+                    'genres': ['originals', 'skill', 'logic'],
+                    'overview': 'This game is a geometric game. It\'s very entertaining!',
+                    'instructions': 'Move the points on the graph so no point is on a line and the lines don\'t intersect. Doing so gets you a win!',
+                    'icon': 'https://s3.envato.com/files/89380634/04_preview4.jpg',
+                    'url': 'https://ilibrarian.net/games/tronix/'
+                },
+                {
+                    'name': 'Typing Express',
+                    'genres': ['skill'],
+                    'overview': 'Type as fast as you can with this typing game!',
+                    'instructions': 'Type the letters that appear in the bubbles in order. But don\'t let the bubbles reach the bottom or it\'s game over!',
+                    'icon': 'https://ilibrarian.net/games/typing-express/images/bg2.jpg',
+                    'url': 'https://ilibrarian.net/games/typing-express/'
+                },
+                {
+                    'name': 'Ultimate Swish',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This basketball game is simple to play but very intense at some points!',
+                    'instructions': 'Click to time your shot. Get the meter towards the center for the best shot at a swish!',
+                    'icon': 'https://ilibrarian.net/games/ultimate-swish/sprites/bg_preloader.jpg',
+                    'url': 'https://ilibrarian.net/games/ultimate-swish/'
+                },
+                {
+                    'name': 'United States Map',
+                    'genres': ['skill'],
+                    'overview': 'This map game requires good knowledge of the states in the United States.',
+                    'instructions': 'Drag the state to the location in which it belongs. This game isn\'t sensitive so you don\'t need to worry about it being exact.',
+                    'icon': 'https://ilibrarian.net/games/united-states-map/images/statesloc-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/united-states-map/'
+                },
+                {
+                    'name': '4 Images 1 Word - United States Government Edition',
+                    'genres': ['guessing', 'word', 'skill'],
+                    'overview': 'This United States Government edition of 4 Images 1 Word is quite fun!',
+                    'instructions': 'Click the letters in order to spell a word that relates to all the pictures.',
+                    'icon': 'https://ilibrarian.net/games/us-government-game/sprites/logo.png',
+                    'url': 'https://ilibrarian.net/games/us-government-game/'
+                },
+                {
+                    'name': 'Waffle',
+                    'genres': ['guessing', 'word', 'skill'],
+                    'overview': 'This guessing game has no word bank, so it\'s a challenge to get the words right. Still fun though!',
+                    'instructions': 'Click and drag to spell words.',
+                    'icon': 'https://ilibrarian.net/games/waffle/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/waffle/'
+                },
+                {
+                    'name': 'Whack \'Em All',
+                    'genres': ['originals', 'classic', 'arcade', 'skill'],
+                    'overview': 'This classic game was popular back then, and still is now!',
+                    'instructions': 'Click the boys that pop up. Avoid clicking on bombs!',
+                    'icon': 'https://ilibrarian.net/games/whack-em-all/sprites/200x200.jpg',
+                    'url': 'https://ilibrarian.net/games/whack-em-all/'
+                },
+                {
+                    'name': 'Word Puzzle',
+                    'genres': ['word', 'skill'],
+                    'overview': 'This word game is easy at first, but some levels are harder than others, so be careful!',
+                    'instructions': 'Click and drag each letter to the bottom. Spell a word to win!',
+                    'icon': 'https://ilibrarian.net/games/word-puzzle/images/howtoplay-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/word-puzzle/'
+                },
+                {
+                    'name': 'Flappy Bird',
+                    'genres': ['originals', 'classic', 'arcade', 'skill'],
+                    'overview': 'This fun game requires precise timing.',
+                    'instructions': 'Click to make the bird flap. Pass through the pipes. Hit a pipe and it\'s game over!',
+                    'icon': 'https://upload.wikimedia.org/wikipedia/en/0/0a/Flappy_Bird_icon.png',
+                    'url': 'http://s3-eu-west-1.amazonaws.com/apps.playcanvas.com/TAhlQLDa/index.html'
+                },
+                {
+                    'name': 'Clever Frog',
+                    'genres': ['originals', 'skill', 'strategy', 'logic'],
+                    'overview': 'This is the strangest game I\'ve ever put on Easy Gaming Deluxe! This was also on the original Easy Gaming.',
+                    'instructions': 'Use the arrow keys to move the frog.',
+                    'icon': 'https://ilibrarian.net/games/clever-frog/images/bgmenu-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/clever-frog/'
+                },
+                {
+                    'name': 'Bowling',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This game was on the original Easy Gaming and is still quite fun!',
+                    'instructions': 'Click to time your shot. Knock as many pins down as you can!',
+                    'icon': 'http://icons.iconarchive.com/icons/google/noto-emoji-activities/1024/52739-bowling-icon.png',
+                    'url': 'https://ilibrarian.net/games/bowling/'
+                },
+                {
+                    'name': 'Tetris Flash',
+                    'genres': ['originals', 'arcade', 'skill', 'logic'],
+                    'overview': 'This game was on the original Easy Gaming. It offers a realistic Tetris experience with some not-so-realistic music, lol. Well, this game should be fun so why not give it a try!',
+                    'instructions': 'Use the arrow keys to fit pieces in the frame. Clear a row by filling up a row. This game ends when there is no more room to make another piece appear at the top of the screen.',
+                    'icon': 'http://icons.iconarchive.com/icons/tatice/cristal-intense/256/Tetris-icon.png',
+                    'url': 'https://ilibrarian.net/games/tetris/'
+                },
+                {
+                    'name': 'Baseball Pro',
+                    'genres': ['originals', 'sports', 'skill'],
+                    'overview': 'This baseball game was on the original Easy Gaming. It offers a fun experience!',
+                    'instructions': 'Click to swing the bat. Try to make as many home runs as you can!',
+                    'icon': 'https://gameapks.com/wp-content/uploads/1504352_featured.png',
+                    'url': 'https://ilibrarian.net/games/baseball-pro/'
+                },
+                {
+                    'name': 'Car Rush',
+                    'genres': ['originals', 'racing', 'skill'],
+                    'overview': 'This racing game was once on the original Easy Gaming site. This buggy is slow at turning, which makes this game challenging. Can you control the crappy car to the finish?',
+                    'instructions': 'Use the arrow keys to move forward, brake, and turn the buggy. Get to the finish before time runs out!',
+                    'icon': 'https://store-images.s-microsoft.com/image/apps.33864.14505982748290816.f3cc4b4f-568d-4d25-942d-30687a1287ce.4b67b503-f991-4ee6-827a-1e74c1cb46a9?w=672&h=378&q=80&mode=letterbox&background=%23FFE4E4E4&format=jpg',
+                    'url': 'https://ilibrarian.net/games/car-rush/'
+                },
+                {
+                    'name': '4 Colors',
+                    'genres': ['originals', 'classic', 'skill', 'strategy', 'logic'],
+                    'overview': 'This game is based on Uno! and is very fun to play! It was one of the top games on the original Easy Gaming website as well.',
+                    'instructions': 'Based on the card from the pile, place a card that matches the color or number (or both, which is rare). If you have 1 card left, yell Uno! by clicking the button. Whoever goes out first wins!',
+                    'icon': 'https://ilibrarian.net/games/four-colors/sprites/bg_menu.jpg',
+                    'url': 'https://ilibrarian.net/games/four-colors/'
+                },
+                {
+                    'name': 'Fast Math',
+                    'genres': ['numbers', 'skill', 'logic'],
+                    'overview': 'This fast paced game is very educational but okay I guess.',
+                    'instructions': 'Decide if the equation is true or false. Get an answer wrong and the game is over!',
+                    'icon': 'https://ilibrarian.net/games/fastmath/images/ui_animation-sheet0.png',
+                    'url': 'https://ilibrarian.net/games/fastmath/'
+                },
+                {
+                    'name': 'Pac-man',
+                    'genres': ['originals', 'classic', 'arcade', 'skill', 'strategy', 'logic'],
+                    'overview': 'This Pac-man game is sure a classic and is very fun to play!',
+                    'instructions': 'Use the arrow keys to guide Pac-man and eat the pellets. Eat a giant pellet  to kill ghosts! But don\'t touch ghosts if they aren\'t blue or you will die!',
+                    'icon': 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Pac_Man.svg/200px-Pac_Man.svg.png',
+                    'url': 'https://www.echalk.co.uk/amusements/Games/Pacman/pacman.html'
+                },
+                {
+                    'name': 'Simon',
+                    'genres': ['originals', 'classic', 'skill', 'logic'],
+                    'overview': 'This game is very fun to play. Just remember the colors to win!',
+                    'instructions': 'A sequence of colors will play. Repeat the sequence by pressing the buttons in order. Guess incorrectly and you lose!',
+                    'icon': 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Simon_Electronic_Game.jpg',
+                    'url': 'https://www.echalk.co.uk/amusements/Games/Simon/simon.html'
+                },
+                /*
+                {
+                    'name': '',
+                    'genres': [],
+                    'overview': '',
+                    'instructions': '',
+                    'icon': '',
+                    'url': ''
+                },
+                */
+                /*
+                {
+                    'name': '',
+                    'genres': [],
+                    'overview': '',
+                    'instructions': '',
+                    'icon': '',
+                    'url': ''
+                },
+                */
+                /*
+                {
+                    'name': '',
+                    'genres': [],
+                    'overview': '',
+                    'instructions': '',
+                    'icon': '',
+                    'url': ''
+                },
+                */
+                /*
+                {
+                    'name': '',
+                    'genres': [],
+                    'overview': '',
+                    'instructions': '',
+                    'icon': '',
+                    'url': ''
+                },
+                */
+            ];
+            
+            function loadMore(i) {
+                games[i].style = 'color: ' + categoryInformation[i]['textColor'] + '; background-image: url(' + categoryInformation[i]['icon'] + '); background-repeat: no-repeat; background-size: 100% 100%;';
+                viewButtons[i].style.borderColor = categoryInformation[i]['textColor'];
+                viewButtons[i].style.color = categoryInformation[i]['textColor'];
+                categoryTitles[i].textContent = categoryInformation[i]['title'];
+                categoryDescriptions[i].textContent = categoryInformation[i]['description'];
+                var invisibleImage = document.createElement('img');
+                invisibleImage.style.display = 'none';
+                invisibleImage.src = categoryInformation[i]['icon'];
+                imageCounter = imageCounter + 1;
+                textLoader.innerHTML += '<br>Loading image ' + imageCounter + ' of ' + (gameItemsArray.length + categoryInformation.length - 1) + '...';
+                textLoader.scrollTop = textLoader.scrollHeight;
+                var timeout = setTimeout(function() {
+                    textLoader.innerHTML += '<br>IMAGE COULD NOT LOAD';
+                    textLoader.scrollTop = textLoader.scrollHeight;
+                    loadProgress += (100 / (gameItemsArray.length + categoryInformation.length - 1));
+                    frontLoader.style.width = loadProgress + '%';
+                    categoryInformation[i]['textColor'] = 'white';
+                    games[i].style = 'color: ' + categoryInformation[i]['textColor'] + '; background-image: url(\'default-image.jpeg\'); background-repeat: no-repeat; background-size: 100% 100%;';
+                    viewButtons[i].style.borderColor = categoryInformation[i]['textColor'];
+                    viewButtons[i].style.color = categoryInformation[i]['textColor'];
+                    imageFail = true;
+                    try {
+                        loadMore(i + 1);
+                    } catch(e) {
+                        loadMoreGames(1);
+                    }
+                }, 10000);
+                invisibleImage.addEventListener('load', function() {
+                    imageLoadedCounter = imageLoadedCounter + 1;
+                    loadProgress += (100 / (gameItemsArray.length + categoryInformation.length - 1));
+                    frontLoader.style.width = loadProgress + '%';
+                    textLoader.innerHTML += '<br>DONE';
+                    textLoader.scrollTop = textLoader.scrollHeight;
+                    clearTimeout(timeout);
+                    try {
+                        loadMore(i + 1);
+                    } catch(e) {
+                        loadMoreGames(1);
+                    }
+                }, false);
+            }
+            function loadMoreGames(i) {
+                var invisibleImage = document.createElement('img');
+                invisibleImage.style.display = 'none';
+                invisibleImage.src = gameItemsArray[i]['icon'];
+                imageCounter = imageCounter + 1;
+                textLoader.innerHTML += '<br>Loading image ' + imageCounter + ' of ' + (gameItemsArray.length + categoryInformation.length - 1) + '...';
+                textLoader.scrollTop = textLoader.scrollHeight;
+                var timeout = setTimeout(function() {
+                    textLoader.innerHTML += '<br>IMAGE COULD NOT LOAD';
+                    textLoader.scrollTop = textLoader.scrollHeight;
+                    loadProgress += (100 / (gameItemsArray.length + categoryInformation.length - 1));
+                    frontLoader.style.width = loadProgress + '%';
+                    gameIcons[i]['icon'] = 'default-image.png';
+                    imageFail = true;
+                    try {
+                        loadMoreGames(i + 1);
+                    } catch(e) {
+                        textLoader.innerHTML += '<br>Finished initializing.';
+                        textLoader.scrollTop = textLoader.scrollHeight;
+                        setTimeout(function() {
+                            intro.style.opacity = 0;
+                            if (imageFail) {
+                                imageErrorModal.style.display = 'block';
+                                imageErrorModal.style.opacity = 1;
+                            }
+                            setTimeout(function() {
+                                intro.style.display = 'none';
+                            }, 500)
+                        }, 500);
+                    }
+                }, 10000);
+                invisibleImage.addEventListener('load', function() {
+                    imageLoadedCounter = imageLoadedCounter + 1;
+                    loadProgress += (100 / (gameItemsArray.length + categoryInformation.length - 1));
+                    frontLoader.style.width = loadProgress + '%';
+                    textLoader.innerHTML += '<br>DONE';
+                    textLoader.scrollTop = textLoader.scrollHeight;
+                    clearTimeout(timeout);
+                    try {
+                        loadMoreGames(i + 1);
+                    } catch(e) {
+                        textLoader.innerHTML += '<br>Finished initializing.';
+                        textLoader.scrollTop = textLoader.scrollHeight;
+                        setTimeout(function() {
+                            intro.style.opacity = 0;
+                            if (imageFail) {
+                                imageErrorModal.style.display = 'block';
+                                imageErrorModal.style.opacity = 1;
+                            }
+                            setTimeout(function() {
+                                intro.style.display = 'none';
+                            }, 500)
+                        }, 500)
+                    }
+                }, false);
+            }
+            function setTitleText(regularText, cursiveText) {
+                logo.style.opacity = 0;
+                setTimeout(function() {
+                    logo.innerHTML = regularText + ' <b class="cursive">' + cursiveText + '</b>';
+                    logo.style.opacity = 1;
+                }, 250);
+            }
+            function gameLoaded() {
+                realGame.removeEventListener('load', gameLoaded);
+                gameTab.style.display = 'none';
+                playGameTab.style.display = 'block';
+                backButton.textContent = 'Back';
+                gameLoadingModal.style.opacity = 0;
+                setTimeout(function() {
+                    gameLoadingModal.style.display = 'none';
+                }, 250);
+            }
+            function initialize() {
+                setTimeout(function() {
+                    introText.style.opacity = 1;
+                }, 50);
+                setTimeout(function() {
+                    loadMore(0);
+                }, 500);
+                for (var i = 0; i < games.length; i++) {
+                    games[i].setAttribute('data-index', i + '');
+                }
+                for (var i = 0; i < gameItemsArray.length; i++) {
+                    gameTitles[i].textContent = gameItemsArray[i]['name'];
+                    gameIcons[i].style.backgroundImage = 'url("' + gameItemsArray[i]['icon'] + '")';
+                    gameItems[i].setAttribute('data-index', i + '');
+                    if (gameItemsArray[i]['genres'].length == 1) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0];
+                    } else if (gameItemsArray[i]['genres'].length == 2) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0] + ' #' + gameItemsArray[i]['genres'][1];
+                    } else if (gameItemsArray[i]['genres'].length == 3) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0] + ' #' + gameItemsArray[i]['genres'][1] + ' #' + gameItemsArray[i]['genres'][2];
+                    } else if (gameItemsArray[i]['genres'].length == 4) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0] + ' #' + gameItemsArray[i]['genres'][1] + ' #' + gameItemsArray[i]['genres'][2] + ' #' + gameItemsArray[i]['genres'][3];
+                    } else if (gameItemsArray[i]['genres'].length == 5) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0] + ' #' + gameItemsArray[i]['genres'][1] + ' #' + gameItemsArray[i]['genres'][2] + ' #' + gameItemsArray[i]['genres'][3] + ' #' + gameItemsArray[i]['genres'][4];
+                    } else if (gameItemsArray[i]['genres'].length == 6) {
+                        gameDescriptions[i].textContent = '#' + gameItemsArray[i]['genres'][0] + ' #' + gameItemsArray[i]['genres'][1] + ' #' + gameItemsArray[i]['genres'][2] + ' #' + gameItemsArray[i]['genres'][3] + ' #' + gameItemsArray[i]['genres'][4] + ' #' + gameItemsArray[i]['genres'][5];
+                    }
+                }
+                for (var i = 0; i < viewButtons.length; i++) {
+                    viewButtons[i].addEventListener('click', function(e) {
+                        var categoryIndex = e.target.parentElement.getAttribute('data-index');
+                        for (var i2 = 0; i2 < gameItems.length; i2++) {
+                            // TODO: Fix this
+                            if (categoryInformation[categoryIndex]['code-title'] != 'all') {
+                                gameItems[i2].parentElement.style.display = 'none';
+                                for (var i3 = 0; i3 < gameItemsArray[i2]['genres'].length; i3++) {
+                                    if (gameItemsArray[i2]['genres'][i3] == categoryInformation[categoryIndex]['code-title']) {
+                                        gameItems[i2].parentElement.style.display = '';
+                                        break;
+                                    }
+                                }
+                            } else {
+                                gameItems[i2].parentElement.style.display = '';
+                            }
+                        }
+                        // test - history.pushState({}, categoryInformation[categoryIndex]['title'], 'index.html');
+                        page = 'games';
+                        setTitleText(categoryInformation[categoryIndex]['title'], '');
+                        mainTab.style.display = 'none';
+                        backButton.textContent = 'Back';
+                        gameTab.style.display = 'block';
+                    }, false);
+                }
+                for (var i = 0; i < gameInformationButtons.length; i++) {
+                    gameInformationButtons[i].addEventListener('click', function(e) {
+                        gameOverview.textContent = gameItemsArray[e.target.parentElement.parentElement.parentElement.getAttribute('data-index')]['overview'];
+                        gameInstructions.textContent = gameItemsArray[e.target.parentElement.parentElement.parentElement.getAttribute('data-index')]['instructions'];
+                        gameInformationModal.style.display = 'block';
+                        setTimeout(function() {
+                            gameInformationModal.style.opacity = 0;
+                        }, 20);
+                        setTimeout(function() {
+                            gameInformationModal.style.opacity = 1;
+                        }, 40);
+                    }, false);
+                }
+                for (var i = 0; i < gamePlayButtons.length; i++) {
+                    gamePlayButtons[i].addEventListener('click', function(e) {
+                        var gameIndex = e.target.parentElement.parentElement.parentElement.getAttribute('data-index');
+                        page = 'game';
+                        setTitleText(gameItemsArray[gameIndex]['name'], '');
+                        realGame.src = gameItemsArray[gameIndex]['url'];
+                        gameLoadingModal.style.display = 'block';
+                        setTimeout(function() {
+                            gameLoadingModal.style.opacity = 1;
+                        }, 20);
+                        realGame.addEventListener('load', gameLoaded, false);
+                    }, false);
+                }
+                setInterval(function() {
+                    if (navigator.onLine == false) {
+                        internetError.style.display = 'block';
+                        setTimeout(function() {
+                            internetError.style.opacity = 1;
+                        }, 20);
+                    } else {
+                        internetError.style.opacity = 0;
+                        setTimeout(function() {
+                            internetError.style.display = 'none';
+                        }, 250);
+                    }
+                }, 500);
+            }
+            
+            initialize();
+            
+            fullscreenButton.addEventListener('click', function() {
+                realGame.requestFullscreen();
+            }, false);
+            backButton.addEventListener('click', function() {
+                if (page == 'games' || page == 'settings') {
+                    page = 'main';
+                    setTitleText('Easy Gaming', 'Deluxe');
+                    settingsTab.style.display = 'none';
+                    backButton.textContent = 'Settings';
+                    mainTab.style.display = 'block';
+                } else if (page == 'game') {
+                    page = 'games';
+                    setTitleText('Games', '');
+                    gameTab.style.display = 'block';
+                    playGameTab.style.display = 'none';
+                    realGame.src = '';
+                } else if (page == 'main') {
+                    page = 'settings';
+                    setTitleText('Settings', '');
+                    backButton.textContent = 'Back';
+                    mainTab.style.display = 'none';
+                    settingsTab.style.display = 'block';
+                }
+            }, false);
+            gameLoadingCancel.addEventListener('click', function() {
+                page = 'games';
+                setTitleText('Games', '');
+                gameTab.style.display = 'block';
+                playGameTab.style.display = 'none';
+                realGame.removeEventListener('load', gameLoaded);
+                realGame.src = '';
+                gameLoadingModal.style.opacity = 0;
+                setTimeout(function() {
+                    gameLoadingModal.style.display = 'none';
+                }, 250);
+            }, false);
+            informationModalCancel.addEventListener('click', function() {
+                gameInformationModal.style.opacity = 0;
+                setTimeout(function() {
+                    gameInformationModal.style.display = 'none';
+                }, 250);
+            }, false);
+            imageErrorReload.addEventListener('click', function() {
+                location.reload();
+            }, false);
+            imageErrorContinue.addEventListener('click', function() {
+                imageErrorModal.style.opacity = 0;
+                setTimeout(function() {
+                    imageErrorModal.style.display = 'none';
+                }, 250)
+            }, false);
+        </script>
+    </body>
+</html>
