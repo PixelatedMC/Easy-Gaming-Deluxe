@@ -1,0 +1,4 @@
+Version 0.0.1:
+- Alpha version released.
+- Added a bunch of games.
+- Added this respository.
