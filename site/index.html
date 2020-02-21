@@ -1461,9 +1461,13 @@
             var gamePlayButtons = document.getElementsByClassName('play-button');
             var gameInformationButtons = document.getElementsByClassName('info-button');
             
-            var loadProgress = 0;
             var imageCounter = 0;
             var imageLoadedCounter = 0;
+            var totalLoading = 0;
+            var totalLoadingProgress = 0;
+            var totalCategoryIcons = 0;
+            var totalGameIcons = 0;
+            var offset = 2;
             var page = 'main';
             var imageFail = false;
             
@@ -1504,7 +1508,7 @@
                     'description': 'Test your word knowledge with these fun word games.'
                 },
                 {
-                    'icon': 'https://ak4.picdn.net/shutterstock/videos/18622904/thumb/11.jpg',
+                    'icon': 'https://cmkt-image-prd.freetls.fastly.net/0.1.0/ps/3451862/1360/761/m1/fpnw/wm1/xcsfx1inxtztk4rvheimxtbjisldauxfmuv7vnreryzc5ry7tab3t5bnwgejh8c1-.jpg?1508720888&s=b7447205f2bec1d60a166c2c9209a846',
                     'textColor': 'white',
                     'title': 'Multiplayer Games',
                     'code-title': 'multiplayer',
@@ -2068,7 +2072,7 @@
                     'genres': ['originals', 'sports', 'skill'],
                     'overview': 'This baseball game was on the original Easy Gaming. It offers a fun experience!',
                     'instructions': 'Click to swing the bat. Try to make as many home runs as you can!',
-                    'icon': 'https://gameapks.com/wp-content/uploads/1504352_featured.png',
+                    'icon': 'https://live.staticflickr.com/2925/33840134056_3ddff6a1b9_b.jpg',
                     'url': 'https://ilibrarian.net/games/baseball-pro/'
                 },
                 {
@@ -2153,7 +2157,7 @@
                 */
             ];
             
-            function loadMore(i) {
+            /*function loadMore(i) {
                 games[i].style = 'color: ' + categoryInformation[i]['textColor'] + '; background-image: url(' + categoryInformation[i]['icon'] + '); background-repeat: no-repeat; background-size: 100% 100%;';
                 viewButtons[i].style.borderColor = categoryInformation[i]['textColor'];
                 viewButtons[i].style.color = categoryInformation[i]['textColor'];
@@ -2250,6 +2254,89 @@
                         }, 500)
                     }
                 }, false);
+            }*/
+            function getLoadingInformation() {
+                totalLoading = 0;
+                totalCategoryIcons = 0;
+                totalGameIcons = 0;
+                offset = 2;
+                for (var i = 0; i < gameIcons.length; i++) {
+                    totalGameIcons++;
+                }
+                for (var i = 0; i < games.length; i++) {
+                    totalCategoryIcons++;
+                }
+                totalLoading = totalCategoryIcons + totalGameIcons + offset;
+            }
+            function loadImages() {
+                setTimeout(function() {
+                    if (totalLoading - (imageLoadedCounter + offset) != 0) {
+                        for (var i = 0; i < (totalLoading - (imageLoadedCounter + offset)); i++) {
+                            textLoader.innerHTML += '<br>Failed to load game image.';
+                            textLoader.scrollTop = textLoader.scrollHeight;
+                            frontLoader.style.width = '100%';
+                            games[i].style.backgroundImage = 'url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/pd33-jj-0030.jpg?w=800&dpr=1&fit=default&crop=default&auto=format&fm=pjpg&q=75&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=bd75f9ec8defd8597ad79c44308623c8");';
+                        }
+                        textLoader.innerHTML += '<br>Ready.';
+                        setTimeout(function() {
+                            intro.style.opacity = 0;
+                            setTimeout(function() {
+                                intro.style.display = 'none';
+                            }, 500);
+                        }, 500);
+                    }
+                }, 12000);
+                for (var i = 0; i < totalCategoryIcons; i++) {
+                    games[i].style = 'color: ' + categoryInformation[i]['textColor'] + '; background-image: url(' + categoryInformation[i]['icon'] + '); background-repeat: no-repeat; background-size: 100% 100%;';
+                    viewButtons[i].style.borderColor = categoryInformation[i]['textColor'];
+                    viewButtons[i].style.color = categoryInformation[i]['textColor'];
+                    categoryTitles[i].textContent = categoryInformation[i]['title'];
+                    categoryDescriptions[i].textContent = categoryInformation[i]['description'];
+                    var invisibleImage = document.createElement('img');
+                    invisibleImage.style.display = 'none';
+                    invisibleImage.setAttribute('data-index', i);
+                    invisibleImage.src = gameItemsArray[i]['icon'];
+                    invisibleImage.addEventListener('load', function(e) {
+                        loaded = true;
+                        imageLoadedCounter++;
+                        totalLoadingProgress += (100 / totalLoading);
+                        frontLoader.style.width = totalLoadingProgress + '%';
+                        textLoader.innerHTML += '<br>Loaded category image ' + e.target.getAttribute('data-index') + ' of ' + totalGameIcons + '.';
+                        textLoader.scrollTop = textLoader.scrollHeight;
+                        if (totalLoading - (imageLoadedCounter + offset) == 0) {
+                            textLoader.innerHTML += '<br>Ready.';
+                            setTimeout(function() {
+                                intro.style.opacity = 0;
+                                setTimeout(function() {
+                                    intro.style.display = 'none';
+                                }, 500);
+                            }, 500);
+                        }
+                    }, false);
+                }
+                for (var i = 0; i < totalGameIcons; i++) {
+                    var invisibleImage = document.createElement('img');
+                    invisibleImage.style.display = 'none';
+                    invisibleImage.setAttribute('data-index', i);
+                    invisibleImage.src = gameItemsArray[i]['icon'];
+                    invisibleImage.addEventListener('load', function(e) {
+                        loaded = true;
+                        imageLoadedCounter++;
+                        totalLoadingProgress += (100 / totalLoading);
+                        frontLoader.style.width = totalLoadingProgress + '%';
+                        textLoader.innerHTML += '<br>Loaded game image ' + e.target.getAttribute('data-index') + ' of ' + totalGameIcons + '.';
+                        textLoader.scrollTop = textLoader.scrollHeight;
+                        if (totalLoading - (imageLoadedCounter + offset) == 0) {
+                            textLoader.innerHTML += '<br>Ready.';
+                            setTimeout(function() {
+                                intro.style.opacity = 0;
+                                setTimeout(function() {
+                                    intro.style.display = 'none';
+                                }, 500);
+                            }, 500);
+                        }
+                    }, false);
+                }
             }
             function setTitleText(regularText, cursiveText) {
                 logo.style.opacity = 0;
@@ -2269,12 +2356,19 @@
                 }, 250);
             }
             function initialize() {
+                getLoadingInformation();
+                textLoader.innerHTML += '<br>Checking your system...';
                 setTimeout(function() {
                     introText.style.opacity = 1;
-                }, 50);
+                    totalLoadingProgress += (100 / totalLoading);
+                    frontLoader.style.width = totalLoadingProgress + '%';
+                }, 200);
                 setTimeout(function() {
-                    loadMore(0);
-                }, 500);
+                    textLoader.innerHTML += '<br>Loading page structure...';
+                    totalLoadingProgress += (100 / totalLoading);
+                    frontLoader.style.width = totalLoadingProgress + '%';
+                    loadImages();
+                }, 1000);
                 for (var i = 0; i < games.length; i++) {
                     games[i].setAttribute('data-index', i + '');
                 }
